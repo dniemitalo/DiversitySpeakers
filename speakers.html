@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Diversity Speakers Info Entry</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script type="text/javascript" src="divform.js"></script>
+</head>
+<body>
+<form onsubmit="return false">
+	<table>
+	<tr><td><label for="teacher">Teacher</label></td>
+	<td><input type="text" name="teacher" id="teacher"></td></tr>
+	<tr><td><label for="room">Room</label></td>
+	<td><input type="text" name="room" id="room"></td></tr>
+	<tr><td><label for="topic">Topic</label></td>
+	<td><input type="text" name="topic" id="topic"></td></tr>
+	<tr><td><label for="facilitators">Facilitators</label></td>
+	<td><input type="text" name="facilitators" id="facilitators"></td></tr><br>
+	<table>
+	<input type="submit" id="submit" name="submit" value="Save"/>
+</form>
+<p id="status"></p>
+<div id="speakers"><p>Speaker List</p></div>
+</table>
+<script>
+getSpeakers();
+</script>
+</body>
+</html>

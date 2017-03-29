@@ -1,0 +1,25 @@
+body{
+	text-align: center;
+	background-color: #801515;
+}
+h1{
+	color: white;
+}
+div.formbox{
+	background-color: #FF9999;
+	border-style: solid;
+	border-width: 3px;
+	max-width: 500px;
+	margin: auto;
+	padding-top: 15px;
+}
+input[type=submit], button{
+	background-color: #D46A64;
+	color: white;
+	font-size: 120%;
+}
+#status_text{
+background-color:white;
+margin: 10 px;
+padding: 10 px;
+}
