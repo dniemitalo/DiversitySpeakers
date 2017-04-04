@@ -1,7 +1,54 @@
 var speakers;
 var numbers;
 $(document).ready(function(){
-    $("#fields").hide();
+    $('#block').change(function(){
+        console.log('block change function called');
+        $('#periodA').html($('#block').val()*2-1);
+        $('#periodB').html($('#block').val()*2);
+        $('#fields').show();
+        $('#block').hide();
+        $('#blockdiv').hide();
+        getTopics();
+        });
+
+    $('#periodOrBlock').change(function(){
+        console.log('Period or block change function called');
+        
+        if($('#periodOrBlock').val()=="B4"){
+            console.log("B4 selected");
+            $('#periodA').html($('#block').val()*2-1);
+            $('#periodB').html($('#block').val()*2);
+            $('#fields').show();
+            $('#PAselect').show();
+            $('#PBselect').show();
+        }
+        else if($('#periodOrBlock').val()=="P7"){
+            console.log("P7 selected");
+            $('#periodA').html(7);
+            $('#fields').show();
+            // document.getElementById('topicB').value = "NA";
+            // $('#topicB').val("NA");
+            $('#topicB').attr('value','NA');
+            $('#PAselect').show();
+            $('#PBselect').hide();
+        }
+        else if($('#periodOrBlock').val()=="P8"){
+            console.log("P8 selected");
+            $('#periodB').html(8);
+            $('#fields').show();
+            // document.getElementById('topicA').value = "NA";
+            // $('#topicA').val("NA");
+            $('#topicA').attr('value','NA');
+            $('#PAselect').hide();
+            $('#PBselect').show();
+        }
+        getTopics();
+        });
+
+    // $('#fields').hide();
+    $('#block').val(4);
+    $('#block').change();
+    
     $("#submit").click(function(){
         // console.log("Button clicked");
         if (validateForm()){
@@ -13,16 +60,19 @@ $(document).ready(function(){
         }
     }
     );//close btn_submit.click
-    $("#block").change(function(){
-        $('#periodA').html($('#block').val()*2-1);
-        $('#periodB').html($('#block').val()*2);
-        $("#fields").show();
-        getTopics();
-        });
+
 });//close document ready
 
 function signUp(){
     $('#status').html('Connecting to database...');
+    var skinny;
+    if($('#periodOrBlock').val()=="P7"){
+        skinny = 7;
+    }
+    else if($('#periodOrBlock').val()=="P8"){
+        skinny = 8;
+    }
+
     var first = $('#first').val();
     var last = $('#last').val();
     var teacher = $('#teacher').val();
@@ -31,7 +81,8 @@ function signUp(){
     var periodB = $('#block').val()*2;
     var speakerB = $('#topicB').val();    
     var params = 
-        'first='+first+
+        'skinny='+skinny+
+        '&first='+first+
         '&last='+last+
         '&teacher='+teacher+
         '&periodA='+periodA+
@@ -115,6 +166,7 @@ function getTopics(){
 }
 
 function validateForm(){
+    var periodOrBlock = $('#periodOrBlock').val();
     var block = $('#block').val();
     var teacher = $('#teacher').val();     
     var first = $('#first').val();     
@@ -136,9 +188,17 @@ function validateForm(){
         alertmessage += "Last name must be entered.<br>";
         validated = false;
     }
-    if (topicA==""||topicA==null||topicB==""||topicB==null||topicA==topicB){
-        alertmessage += "Two different topics must be selected.<br>";
-        validated = false;
+    if(periodOrBlock=="P7"||periodOrBlock=="P8"){
+        if (topicA==null&&topicB==null){
+            alertmessage += "Select a topic.<br>";
+            validated = false;
+        }
+    }
+    else{
+        if (topicA==""||topicA==null||topicB==""||topicB==null||topicA==topicB){
+            alertmessage += "Two different topics must be selected.<br>";
+            validated = false;
+        }
     }
     if (validated==false){
         $("#status").html("<span style=\"color:red;font-weight:bold;font-size:110%\">"+alertmessage+"</span>");
